@@ -10,7 +10,7 @@ class LdaTransformer(BaseEstimator):
 	"""
 	def __init__(self, n_latent_topics = 100, distributed = False, chunksize = 2000, passes = 1, update_every = 1, alpha = 'symmetric', eta = None, decay = 0.5, eval_every = 10, iterations = 50, gamma_threshold = 0.001):
 		self.n_latent_topics = n_latent_topics
-		self.distributed = False
+		self.distributed = distributed
 		self.chunksize = chunksize
 		self.passes = passes
 		self.update_every = update_every
