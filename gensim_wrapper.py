@@ -8,7 +8,7 @@ class LdaTransformer(BaseEstimator):
 
 	X should be a list of tokens for each document, e.g. [['This', 'is', 'document', '1'], ['Second', 'document']]
 	"""
-	def __init__(self, n_latent_topics = 100, distributed = False, chunksize = 2000, passes = 1, update_every = 1, alpha = 'symmetric', eta = None, decay = 0.5, offset = 1.0, eval_every = 10, iterations = 50, gamma_threshold = 0.001):
+	def __init__(self, n_latent_topics = 100, distributed = False, chunksize = 2000, passes = 1, update_every = 1, alpha = 'symmetric', eta = None, decay = 0.5, eval_every = 10, iterations = 50, gamma_threshold = 0.001):
 		self.n_latent_topics = n_latent_topics
 		self.distributed = False
 		self.chunksize = chunksize
@@ -17,7 +17,6 @@ class LdaTransformer(BaseEstimator):
 		self.alpha = alpha
 		self.eta = eta
 		self.decay = decay
-		self.offset = offset
 		self.eval_every = eval_every
 		self.iterations = iterations
 		self.gamma_threshold = gamma_threshold
@@ -34,12 +33,12 @@ class LdaTransformer(BaseEstimator):
 		self.dictionary = corpora.Dictionary(X)
 		corpus = [self.dictionary.doc2bow(text) for text in X]
 
-		self.model = models.LdaModel(corpus, id2word = self.dictionary, num_topics = self.n_latent_topics, distributed = self.distributed, chunksize = self.chunksize, passes = self.passes, update_every = self.update_every, alpha = self.alpha, eta = self.eta, decay = self.decay, offset = self.offset, eval_every = self.eval_every, iterations = self.iterations, gamma_threshold = self.gamma_threshold)
+		self.model = models.LdaModel(corpus, id2word = self.dictionary, num_topics = self.n_latent_topics, distributed = self.distributed, chunksize = self.chunksize, passes = self.passes, update_every = self.update_every, alpha = self.alpha, eta = self.eta, decay = self.decay, eval_every = self.eval_every, iterations = self.iterations, gamma_threshold = self.gamma_threshold)
 
 		return self
 
 	def get_params(self, deep = False):
-		return {'n_latent_topics': self.n_latent_topics, 'distributed': self.distributed, 'chunksize': self.chunksize, 'passes': self.passes, 'update_every': self.update_every, 'alpha': self.alpha, 'eta': self.eta, 'decay': self.decay, 'offset': self.offset, 'eval_every': self.eval_every, 'iterations': self.iterations, 'gamma_threshold': self.gamma_threshold}
+		return {'n_latent_topics': self.n_latent_topics, 'distributed': self.distributed, 'chunksize': self.chunksize, 'passes': self.passes, 'update_every': self.update_every, 'alpha': self.alpha, 'eta': self.eta, 'decay': self.decay, 'eval_every': self.eval_every, 'iterations': self.iterations, 'gamma_threshold': self.gamma_threshold}
 
 class LsiTransformer(BaseEstimator):
 	"""
